@@ -1,0 +1,33 @@
+1401562475s:2325:"<h1>Introduction</h1>
+
+<ul>
+<li><a href="#where-to-start">Where To Start</a></li>
+<li><a href="#laravel-philosophy">Laravel Philosophy</a></li>
+</ul>
+
+<p><a name="where-to-start"></a></p>
+
+<h2>Where To Start</h2>
+
+<p>Learning a new framework can be daunting, but it's also exciting. To smooth your transition, we've attempted to create very clear, concise documentation for Laravel. Here are some recommendations for what to read first:</p>
+
+<ul>
+<li><a href="/docs/installation">Installation</a> and <a href="/docs/configuration">Configuration</a></li>
+<li><a href="/docs/routing">Routing</a></li>
+<li><a href="/docs/requests">Requests &amp; Input</a></li>
+<li><a href="/docs/responses">Views &amp; Responses</a></li>
+<li><a href="/docs/controllers">Controllers</a></li>
+</ul>
+
+<p>After reading through these documents, you should have a good grasp on basic request / response handling in Laravel. Next, you may wish to read about <a href="/docs/database">configuring your database</a>, the <a href="/docs/queries">fluent query builder</a>, and the <a href="/docs/eloquent">Eloquent ORM</a>. Or, you may wish to read about <a href="/docs/security">authentication and security</a> so you can start signing people into your application.</p>
+
+<p><a name="laravel-philosophy"></a></p>
+
+<h2>Laravel Philosophy</h2>
+
+<p>Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.</p>
+
+<p>Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.</p>
+
+<p>Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.</p>
+";

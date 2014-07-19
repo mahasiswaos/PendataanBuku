@@ -1,0 +1,61 @@
+<?php $__env->startSection('content'); ?>
+<?php if (Session::has('message')): ?>
+<div class="alert alert-info alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <?php echo Session::get('message'); ?>
+</div>
+<?php endif; ?>
+<br/>
+<br/>
+<br/>
+
+   
+        <?php foreach ($penerbit as $val) { ?>
+        
+    <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>Nama Penerbit: <?php echo $val->nama ?></strong>
+            </div>
+            <div class="panel-body">
+              
+             <img width="130" height="130" src="<?php  echo URL::to($val['picture']); ?>"/>  
+              <a class="btn btn-info" href="<?php echo URL::to('/penerbit/edit/'.$val->id); ?>"><i class="glyphicon glyphicon-edit"></i></a>   
+               <a  class="btn btn-danger" href="<?php echo URL::to('/penerbit/delete/'.$val->id); ?>"><i class="glyphicon glyphicon-trash"></i></a>
+            </div>
+            <div class="panel-heading">
+                <table>
+                    <tr>
+                     <td><strong>Tanggal Berdiri</strong></td>
+                     <td>:  </td>
+                     <td><?php echo $val->tgl_berdiri ?></td>
+                    </tr>
+                    <tr>
+                     <td><strong>Alamat</strong></td> 
+                     <td>:  </td>
+                     <td><?php echo $val->alamat ?></td>
+                    </tr>
+                </table>
+            </div>
+         </div>
+    </div>
+        
+    </div>     
+    
+    
+    
+     
+        <?php } ?>
+    
+
+<ul class="pager">
+ <?php echo $penerbit->links();?>
+</ul>
+
+ 
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.bootstrapadmin.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

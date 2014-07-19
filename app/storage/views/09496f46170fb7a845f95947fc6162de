@@ -1,0 +1,4 @@
+<?php
+echo "<pre>";
+print_r($isi[0]['nama']);
+echo "</pre>";

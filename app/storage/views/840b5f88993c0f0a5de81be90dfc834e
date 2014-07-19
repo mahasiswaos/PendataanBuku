@@ -1,0 +1,57 @@
+
+<?php $__env->startSection('content'); ?>
+<div class="container"> 
+<div class="col-sm-8">
+    <div class="panel panel-info">
+        <div class="panel-heading"><i class="glyphicon glyphicon-plus"></i> Form Tambah Penerbit</div> 
+        <div class="panel-body">
+            <form class="form-horizontal"  enctype="multipart/form-data" method="POST" action="<?php echo URL::to("/penerbit/addProses"); ?>">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-3 control-label">ID Penerbit</label>
+                    <div class="col-sm-3">
+                        <input type="text" name="id" class="form-control " placeholder="ID Penerbit">
+                        <p style="color: red"> <?php echo $errors->first('id '); ?> </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-3 control-label">Nama</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="nama" class="form-control " placeholder="nama">
+                        <p style="color: red"> <?php echo $errors->first('nama'); ?> </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-3 control-label">Tanggal Berdiri</label>
+                    <div class="col-sm-3">
+                        <input type="date" name="tgl" class="form-control " placeholder="Tanggal Lahir">
+                        <p style="color: red"> <?php echo $errors->first('tgl'); ?> </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-3 control-label">Alamat</label>
+                    <div class="col-sm-5">
+                        <textarea type="text" name="alamat" class="form-control " placeholder="Alamat"></textarea>
+                        <p style="color: red"> <?php echo $errors->first('alamat'); ?> </p>
+                    </div>
+                </div>
+                
+                 <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-3 control-label">Gambar</label>
+                    <div class="col-sm-5">
+                        <input type="file" name="gambar" class="form-control" placeholder="gambar">
+                        <p style="color: red"> <?php echo $errors->first('gambar'); ?> </p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-10">
+                        <button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-saved"></i> Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.bootstrapadmin.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

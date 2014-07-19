@@ -1,0 +1,164 @@
+1401563945s:6031:"<h1>Basic Database Usage</h1>
+
+<ul>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#read-write-connections">Read / Write Connections</a></li>
+<li><a href="#running-queries">Running Queries</a></li>
+<li><a href="#database-transactions">Database Transactions</a></li>
+<li><a href="#accessing-connections">Accessing Connections</a></li>
+<li><a href="#query-logging">Query Logging</a></li>
+</ul>
+
+<p><a name="configuration"></a></p>
+
+<h2>Configuration</h2>
+
+<p>Laravel makes connecting with databases and running queries extremely simple. The database configuration file is <code>app/config/database.php</code>. In this file you may define all of your database connections, as well as specify which connection should be used by default. Examples for all of the supported database systems are provided in this file.</p>
+
+<p>Currently Laravel supports four database systems: MySQL, Postgres, SQLite, and SQL Server.</p>
+
+<p><a name="read-write-connections"></a></p>
+
+<h2>Read / Write Connections</h2>
+
+<p>Sometimes you may wish to use one database connection for SELECT statements, and another for INSERT, UPDATE, and DELETE statements. Laravel makes this a breeze, and the proper connections will always be used whether you are using raw queries, the query builder, or the Eloquent ORM.</p>
+
+<p>To see how read / write connections should be configured, let's look at this example:</p>
+
+<pre><code>'mysql' =&gt; array(
+    'read' =&gt; array(
+        'host' =&gt; '192.168.1.1',
+    ),
+    'write' =&gt; array(
+        'host' =&gt; '196.168.1.2'
+    ),
+    'driver'    =&gt; 'mysql',
+    'database'  =&gt; 'database',
+    'username'  =&gt; 'root',
+    'password'  =&gt; '',
+    'charset'   =&gt; 'utf8',
+    'collation' =&gt; 'utf8_unicode_ci',
+    'prefix'    =&gt; '',
+),
+</code></pre>
+
+<p>Note that two keys have been added to the configuration array: <code>read</code> and <code>write</code>. Both of these keys have array values containing a single key: <code>host</code>. The rest of the database options for the <code>read</code> and <code>write</code> connections will be merged from the main <code>mysql</code> array. So, we only need to place items in the <code>read</code> and <code>write</code> arrays if we wish to override the values in the main array. So, in this case, <code>192.168.1.1</code> will be used as the "read" connection, while <code>192.168.1.2</code> will be used as the "write" connection. The database credentials, prefix, character set, and all other options in the main <code>mysql</code> array will be shared across both connections.</p>
+
+<p><a name="running-queries"></a></p>
+
+<h2>Running Queries</h2>
+
+<p>Once you have configured your database connection, you may run queries using the <code>DB</code> class.</p>
+
+<h4>Running A Select Query</h4>
+
+<pre><code>$results = DB::select('select * from users where id = ?', array(1));
+</code></pre>
+
+<p>The <code>select</code> method will always return an <code>array</code> of results.</p>
+
+<h4>Running An Insert Statement</h4>
+
+<pre><code>DB::insert('insert into users (id, name) values (?, ?)', array(1, 'Dayle'));
+</code></pre>
+
+<h4>Running An Update Statement</h4>
+
+<pre><code>DB::update('update users set votes = 100 where name = ?', array('John'));
+</code></pre>
+
+<h4>Running A Delete Statement</h4>
+
+<pre><code>DB::delete('delete from users');
+</code></pre>
+
+<blockquote>
+  <p><strong>Note:</strong> The <code>update</code> and <code>delete</code> statements return the number of rows affected by the operation.</p>
+</blockquote>
+
+<h4>Running A General Statement</h4>
+
+<pre><code>DB::statement('drop table users');
+</code></pre>
+
+<h4>Listening For Query Events</h4>
+
+<p>You may listen for query events using the <code>DB::listen</code> method:</p>
+
+<pre><code>DB::listen(function($sql, $bindings, $time)
+{
+    //
+});
+</code></pre>
+
+<p><a name="database-transactions"></a></p>
+
+<h2>Database Transactions</h2>
+
+<p>To run a set of operations within a database transaction, you may use the <code>transaction</code> method:</p>
+
+<pre><code>DB::transaction(function()
+{
+    DB::table('users')-&gt;update(array('votes' =&gt; 1));
+
+    DB::table('posts')-&gt;delete();
+});
+</code></pre>
+
+<blockquote>
+  <p><strong>Note:</strong> Any exception thrown within the <code>transaction</code> closure will cause the transaction to be rolled back automatically.</p>
+</blockquote>
+
+<p>Sometimes you may need to begin a transaction yourself:</p>
+
+<pre><code>DB::beginTransaction();
+</code></pre>
+
+<p>You can rollback a transaction via the <code>rollback</code> method:</p>
+
+<pre><code>DB::rollback();
+</code></pre>
+
+<p>Lastly, you can commit a transaction via the <code>commit</code> method:</p>
+
+<pre><code>DB::commit();
+</code></pre>
+
+<p><a name="accessing-connections"></a></p>
+
+<h2>Accessing Connections</h2>
+
+<p>When using multiple connections, you may access them via the <code>DB::connection</code> method:</p>
+
+<pre><code>$users = DB::connection('foo')-&gt;select(...);
+</code></pre>
+
+<p>You may also access the raw, underlying PDO instance:</p>
+
+<pre><code>$pdo = DB::connection()-&gt;getPdo();
+</code></pre>
+
+<p>Sometimes you may need to reconnect to a given database:</p>
+
+<pre><code>DB::reconnect('foo');
+</code></pre>
+
+<p>If you need to disconnect from the given database due to exceeding the underlying PDO instance's <code>max_connections</code> limit, use the <code>disconnect</code> method:</p>
+
+<pre><code>DB::disconnect('foo');
+</code></pre>
+
+<p><a name="query-logging"></a></p>
+
+<h2>Query Logging</h2>
+
+<p>By default, Laravel keeps a log in memory of all queries that have been run for the current request. However, in some cases, such as when inserting a large number of rows, this can cause the application to use excess memory. To disable the log, you may use the <code>disableQueryLog</code> method:</p>
+
+<pre><code>DB::connection()-&gt;disableQueryLog();
+</code></pre>
+
+<p>To get an array of the executed queries, you may use the <code>getQueryLog</code> method:</p>
+
+<pre><code>   $queries = DB::getQueryLog();
+</code></pre>
+";

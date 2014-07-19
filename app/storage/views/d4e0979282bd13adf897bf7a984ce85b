@@ -1,0 +1,42 @@
+
+<?php $__env->startSection('content'); ?>
+<br/>
+<br/>
+<br/>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Tanggal Lahir</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($test as $val) { ?>
+            <tr>
+                <td><?php echo $val->id ?></td>
+                <td><?php echo $val->nama ?></td>
+                <td><?php echo $val->tgl_lahir ?></td>
+                <td>
+                    <a class="btn btn-info" href="<?php echo URL::to('/test/edit/'.$val->id); ?>"><i class="glyphicon glyphicon-edit">
+                        Edit</i>
+                    </a>
+                    <a  class="btn btn-danger" 
+                        href="<?php echo URL::to('/test/delete/'.$val->id); ?>"><i class="glyphicon glyphicon-trash">
+                        Delete</i>
+                    </a>
+                </td>
+            </tr>
+        <?php } ?>
+    </tbody>
+</table>
+
+<ul class="pager">
+ <?php echo $test->links();?>
+</ul>
+
+ 
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.bootstrapadmin.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
